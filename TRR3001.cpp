@@ -28,6 +28,7 @@ bool isComponent() {
             DFS(i);
         }
     }
+    
     return true;
 }
 
