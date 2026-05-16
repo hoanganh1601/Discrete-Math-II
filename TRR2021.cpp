@@ -31,7 +31,6 @@ int tplt(int stop) {
             DFS(i, stop);
         }
     }
-
     return cnt;
 }
 
