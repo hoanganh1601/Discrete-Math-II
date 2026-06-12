@@ -4,26 +4,18 @@
 using namespace std;
 using ll = long long;
 
-int vertex; 
-int arr[101][101];
-vector<int> adj[101];
-bool visited[101];
-vector<int> lt[101];
+int vertex;
+int mtx[105][105];
+vector<int> adj[105];
+vector<int> lt[105];
+bool visited[105];
 
-void BFS(int u, int component) {
-    queue<int> q;
-    q.push(u);
-    visited[u] = true; 
-    lt[component].push_back(u);
-
-    while(!q.empty()) {
-        int x = q.front(); q.pop();
-        for (int v : adj[x]) {
-            if(!visited[v]) {
-                lt[component].push_back(v);
-                q.push(v);
-                visited[v] = true;
-            }
+void DFS(int u, int st) {
+    visited[u] = true;
+    lt[st].push_back(u);
+    for (int x : adj[u]) {
+        if(!visited[x]) {
+            DFS(x, st);
         }
     }
 }
@@ -36,27 +28,30 @@ int main() {
     // freopen("TK.INP", "r", stdin);
     // freopen("TK.OUT", "w", stdout);
 
-    cin >> vertex;
+    cin >> vertex; 
     for (int i = 1; i <= vertex; ++i) {
         for (int j = 1; j <= vertex; ++j) {
-            cin >> arr[i][j];
-            if(arr[i][j]) adj[i].push_back(j);
+            cin >> mtx[i][j];
+            if(mtx[i][j]) adj[i].push_back(j);
         }
     }
+    
     memset(visited, false, sizeof(visited));
-
-    int cnt = 0;
+    
+    int ans = 0;
     for (int i = 1; i <= vertex; ++i) {
         if(!visited[i]) {
-            ++cnt;
-            BFS(i, cnt);
+            ++ans;
+            DFS(i, ans);
         }
     }
 
-    cout << cnt << endl;
-    for (int i = 1; i <= cnt; ++i) {
+    cout << ans << endl;
+    for (int i = 1; i <= ans; ++i) {
         sort(lt[i].begin(), lt[i].end());
-        for (int x : lt[i]) cout << x << " ";
+        for (int x : lt[i]) {
+            cout << x << " ";
+        }
         cout << endl;
     }
 
