@@ -19,8 +19,8 @@ struct cmpMin{
 struct cmpMax{
     bool operator()(const Edge &x, const Edge &y) {
         if(x.w != y.w) return x.w < y.w;
-        if(x.u != y.u) return x.u < y.u;
-        return x.v < y.v;
+        if(x.u != y.u) return x.u > y.u;
+        return x.v > y.v;
     }
 };
 
